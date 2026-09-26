@@ -16,7 +16,7 @@ from _content import SAMPLES_DIR, ensure_sample_dir, sample_name  # noqa: E402
 
 # 要打包的源目录（不含 zip 自身）
 # 覆盖 P0 + P1a + P1b 已实现格式；新增格式时同步追加
-SOURCE_DIRS = ["txt", "csv", "docx", "pdf", "png", "xlsx", "pptx", "jpg", "xml", "ini", "cfg", "wav", "mp3", "mp4", "mkv"]
+SOURCE_DIRS = ["txt", "csv", "docx", "pdf", "png", "xlsx", "pptx", "jpg", "xml", "ini", "cfg", "wav", "mp3", "mp4", "mkv", "dxf"]
 
 
 def collect_source_files() -> list[tuple[Path, str]]:

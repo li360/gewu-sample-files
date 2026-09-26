@@ -58,7 +58,8 @@ zh-sample-files/
 | mp3  | — | 25.4 KB | 235.8 KB | ffmpeg libmp3lame 编码正弦波 |
 | mp4  | — | 61.8 KB | 2551.3 KB | ffmpeg testsrc2 + drawtext 思源字体 + 可选 sine 音轨 |
 | mkv  | — | 63.5 KB | 2557.6 KB | ffmpeg testsrc2 + drawtext 思源字体 + libopus 音轨（MKV 容器） |
-| 7z   | — | 361.8 KB | 1381.5 KB | py7zr 打包各格式小文件 + 非音视频中等文件（LZMA2） |
+| dxf  | ASCII（中文 \U+ 转义） | 23.0 KB | 122.8 KB | ezdxf 几何图形 + 中文标注 + 示例化数据表格 |
+| 7z   | — | 365.6 KB | 1388.1 KB | py7zr 打包各格式小文件 + 非音视频中等文件（LZMA2） |
 
 完整元数据（字体、测试场景）见 [docs/formats.md](docs/formats.md)。
 

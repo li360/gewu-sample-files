@@ -32,7 +32,8 @@
 | mp3  | — | 25.4 KB | 235.8 KB | 否 | ffmpeg libmp3lame 编码正弦波（同 wav 内容） | MP3 解码、ID3 标签、比特率测试 |
 | mp4  | — | 61.8 KB | 2551.3 KB | 是（drawtext 加载子集字体） | ffmpeg testsrc2 测试图 + drawtext 中文叠加 + 可选 sine 音轨 | 视频解析、H.264 解码、字幕渲染、音视频同步 |
 | mkv  | — | 63.5 KB | 2557.6 KB | 是（drawtext 加载子集字体） | ffmpeg testsrc2 测试图 + drawtext 中文叠加 + libopus 音轨（MKV 容器） | MKV 容器解析、H.264/Opus 解码、字幕渲染 |
-| 7z   | — | 361.8 KB | 1381.5 KB | 否 | py7zr 打包各格式小文件 + 非音视频中等文件（LZMA2） | 7z 解压、LZMA2 解码、目录结构还原 |
+| dxf  | ASCII（dxf 规范默认） | 23.0 KB | 122.8 KB | 是（文字样式引用 Source Han Sans CN） | ezdxf 几何图形（线/圆/矩形）+ 中文标注 + 示例化数据表格 | CAD 图纸解析、图层管理、文字样式渲染 |
+| 7z   | — | 365.6 KB | 1388.1 KB | 否 | py7zr 打包各格式小文件 + 非音视频中等文件（LZMA2） | 7z 解压、LZMA2 解码、目录结构还原 |
 
 ### 字体说明
 
@@ -46,11 +47,12 @@
   - docx/pptx/xlsx：通过库 API 指定字体名 `Source Han Sans CN`（不嵌字体文件）
   - png/jpg：Pillow `ImageFont.truetype` 加载子集字体
   - mp4/mkv：ffmpeg `drawtext` 滤镜 `fontfile` 参数加载子集字体
+  - dxf：ezdxf 文字样式引用字体名 `Source Han Sans CN`（dxf 文件本身用 ASCII 编码，中文用 \U+XXXX 转义）
 
 ### 大小档位说明
 
-- 小档位目标 < 100 KB：13 个格式符合；zip/7z 因打包所有格式"小文件"组合，体积 370/362 KB，属结构性偏离；mp4/mkv 受视频流最小体积限制，需 320×180/15fps/crf=30 才能压到 62/64 KB
-- 中等档位目标 100 KB–1 MB：11 个格式符合；mp4/mkv 因视频流本质特性，15 秒 960×540 即 2.5 MB，超 1 MB 但在 5 MB 上限内；zip/7z 中等 1.6/1.4 MB，因打包多格式组合，超 1 MB 但在 5 MB 上限内
+- 小档位目标 < 100 KB：14 个格式符合；zip/7z 因打包所有格式"小文件"组合，体积 376/366 KB，属结构性偏离；mp4/mkv 受视频流最小体积限制，需 320×180/15fps/crf=30 才能压到 62/64 KB
+- 中等档位目标 100 KB–1 MB：12 个格式符合；mp4/mkv 因视频流本质特性，15 秒 960×540 即 2.5 MB，超 1 MB 但在 5 MB 上限内；zip/7z 中等 1.6/1.4 MB，因打包多格式组合，超 1 MB 但在 5 MB 上限内
 - 其余格式均符合档位区间
 
 ### ffmpeg 依赖说明

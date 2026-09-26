@@ -33,6 +33,7 @@ MODULES = [
     "generate_mp3",
     "generate_mp4",
     "generate_mkv",
+    "generate_dxf",
     "generate_zip",
     "generate_7z",
 ]
