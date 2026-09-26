@@ -1,4 +1,4 @@
-"""P0 + P1a + P1b 总入口：依次运行所有格式生成脚本（zip 必须最后运行）。
+"""P0 + P1 + P2 总入口：依次运行所有格式生成脚本（压缩类必须最后运行）。
 
 用法：
     uv run python scripts/generate.py
@@ -14,9 +14,10 @@ from pathlib import Path
 
 SCRIPTS_DIR = Path(__file__).resolve().parent
 
-# 模块顺序：zip 依赖其他格式已生成，放在最后
+# 模块顺序：压缩类（zip/7z）依赖其他格式已生成，放在最后
 # jpg 复用 generate_png 的工具函数，需在 png 之后
-# wav/mp3/mp4 独立合成，放在 zip 之前
+# mkv 复用 generate_mp4 的 ffmpeg 辅助函数，需在 mp4 之后
+# 7z 在 zip 之后（让 zip 先重新打包包含 mkv 的样本，7z 再打包全部）
 MODULES = [
     "generate_txt",
     "generate_csv",
@@ -31,7 +32,9 @@ MODULES = [
     "generate_wav",
     "generate_mp3",
     "generate_mp4",
+    "generate_mkv",
     "generate_zip",
+    "generate_7z",
 ]
 
 

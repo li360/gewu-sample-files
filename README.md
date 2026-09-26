@@ -38,7 +38,7 @@ zh-sample-files/
 └── docs/formats.md    # 各格式样本的元数据
 ```
 
-## 已支持的格式（P0 + P1a + P1b）
+## 已支持的格式（P0 + P1 + P2）
 
 | 格式 | 编码 | 小文件 | 中等文件 | 内容来源 |
 |------|------|--------|----------|----------|
@@ -47,7 +47,7 @@ zh-sample-files/
 | docx | — | 37.2 KB | 141.5 KB | Faker 段落 + 古籍原文 |
 | pdf  | — | 70.7 KB | 149.3 KB | 自编段落 + 古籍原文 |
 | png  | — | 56.9 KB | 338.6 KB | Pillow + 思源字体 |
-| zip  | — | 307.5 KB | 4245.3 KB | 打包上述样本 |
+| zip  | — | 370.9 KB | 1633.2 KB | 打包各格式小文件 + 非音视频中等文件 |
 | xlsx | — | 7.0 KB | 115.2 KB | openpyxl + 示例化占位表格 + 思源字体 |
 | pptx | — | 31.7 KB | 163.9 KB | python-pptx + Faker 段落 |
 | jpg  | — | 45.0 KB | 277.2 KB | Pillow + 思源字体（JPEG 压缩） |
@@ -57,6 +57,8 @@ zh-sample-files/
 | wav  | — | 47.0 KB | 861.4 KB | ffmpeg sine 滤镜合成正弦波 |
 | mp3  | — | 25.4 KB | 235.8 KB | ffmpeg libmp3lame 编码正弦波 |
 | mp4  | — | 61.8 KB | 2551.3 KB | ffmpeg testsrc2 + drawtext 思源字体 + 可选 sine 音轨 |
+| mkv  | — | 63.5 KB | 2557.6 KB | ffmpeg testsrc2 + drawtext 思源字体 + libopus 音轨（MKV 容器） |
+| 7z   | — | 361.8 KB | 1381.5 KB | py7zr 打包各格式小文件 + 非音视频中等文件（LZMA2） |
 
 完整元数据（字体、测试场景）见 [docs/formats.md](docs/formats.md)。
 

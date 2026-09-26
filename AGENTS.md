@@ -37,7 +37,7 @@
 - 依赖管理：uv 优先，兼容 pip；提交 `uv.lock` 以保证可复现
 - 主要库：faker、faker-file、Pillow、openpyxl、python-docx、python-pptx、reportlab
 - 音视频处理：ffmpeg（需系统预装并加入 PATH，不在 pyproject 中）
-- 压缩：zip 标准库；RAR 暂缓，因格式专有且工具许可复杂，必要时改用 7z 替代
+- 压缩：zip 标准库；7z 用 py7zr（MIT 许可，开源格式）；RAR 不支持（格式专有且工具许可复杂）
 
 ## 字体策略
 
@@ -141,7 +141,7 @@ P1：
 - xlsx、pptx、jpg、wav、mp3、mp4、xml、ini、cfg
 
 P2：
-- rar、mkv、cad/dwg/dxf
+- mkv、7z、cad/dwg/dxf
 
 ## 工作流
 
