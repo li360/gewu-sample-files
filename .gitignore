@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# uv
+.uv-cache/
+
+# 字体源文件（大于 5MB，不入 git；由脚本下载并子集化）
+assets/fonts/_source/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store

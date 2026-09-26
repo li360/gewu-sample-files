@@ -1,0 +1,11 @@
+# 字体源文件（>5MB）不入 git
+assets/fonts/_source/** filter=lfs diff=lfs merge=lfs -text
+
+# 子集化字体（<5MB）正常入 git
+assets/fonts/*.otf binary
+assets/fonts/*.ttf binary
+
+# 文本样本强制 UTF-8
+samples/**/*.txt text encoding=UTF-8
+samples/**/*.csv text encoding=UTF-8
+samples/**/*.xml text encoding=UTF-8

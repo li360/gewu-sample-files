@@ -1,0 +1,19 @@
+[project]
+name = "zh-sample-files"
+version = "0.1.0"
+description = "中文示例文件库：为开发者提供无版权、可脚本生成的中文样本文件"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "zh-sample-files contributors" }]
+dependencies = [
+    "faker>=30.0.0",
+    "Pillow>=10.0.0",
+    "python-docx>=1.1.0",
+    "reportlab>=4.0.0",
+    "fonttools>=4.50.0",
+]
+
+[tool.uv]
+# 非包项目模式：uv 不构建 wheel，仅管理依赖与脚本运行
+package = false
