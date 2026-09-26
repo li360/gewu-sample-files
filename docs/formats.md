@@ -12,7 +12,7 @@
 - **内容来源**：样本内容的来源（自编 / Faker / 古籍原文）
 - **测试场景**：该格式样本适合的常见测试用途
 
-## P0 + P1a 格式（已实现）
+## P0 + P1a + P1b 格式（已实现）
 
 | 格式 | 编码 | 小文件 | 中等文件 | 字体 | 内容来源 | 测试场景 |
 |------|------|--------|----------|------|----------|----------|
@@ -21,13 +21,16 @@
 | docx | — | 37.2 KB | 141.5 KB | 是（指定字体名） | Faker 段落 + 古籍原文 | Office 在线预览、文档解析、中文字体替换 |
 | pdf  | — | 70.7 KB | 149.3 KB | 是（reportlab 注册） | 自编段落 + 古籍原文 | PDF 阅读器渲染、文本抽取、字体嵌入验证 |
 | png  | — | 56.9 KB | 338.6 KB | 是（Pillow truetype） | Pillow 自绘中文段落 | 图片预览、缩略图生成、中文字体渲染 |
-| zip  | — | 241.3 KB | 1533.3 KB | — | 打包上述样本（按子目录组织） | 压缩包解压、目录结构还原、跨格式批量测试 |
-| xlsx | — | 7.7 KB | 150.8 KB | 是（openpyxl Font 指定字体名） | Faker zh_CN 虚构人物表格 | Excel 解析、单元格样式、中文字体替换 |
-| pptx | — | 31.7 KB | 163.5 KB | 是（python-pptx 指定字体名） | Faker 段落 + 自编段落 | 幻灯片解析、版式渲染、中文字体替换 |
+| zip  | — | 310.7 KB | 4381.0 KB | — | 打包上述样本（按子目录组织） | 压缩包解压、目录结构还原、跨格式批量测试 |
+| xlsx | — | 7.7 KB | 150.7 KB | 是（openpyxl Font 指定字体名） | Faker zh_CN 虚构人物表格 | Excel 解析、单元格样式、中文字体替换 |
+| pptx | — | 31.7 KB | 163.9 KB | 是（python-pptx 指定字体名） | Faker 段落 + 自编段落 | 幻灯片解析、版式渲染、中文字体替换 |
 | jpg  | — | 45.0 KB | 277.2 KB | 是（Pillow truetype） | Pillow 自绘中文段落（JPEG 压缩） | 图片预览、缩略图生成、有损压缩测试 |
-| xml  | UTF-8（无 BOM） | 7.5 KB | 500.5 KB | 否 | ElementTree + Faker 假数据序列化 | XML 解析、命名空间处理、编码声明验证 |
-| ini  | UTF-8（无 BOM） | 4.4 KB | 276.1 KB | 否 | configparser + Faker 假数据 | 配置文件解析、节段读取、键值对提取 |
-| cfg  | UTF-8（无 BOM） | 4.4 KB | 276.1 KB | 否 | 同 ini（仅扩展名不同，内容字节级一致） | 配置文件解析、扩展名兼容性测试 |
+| xml  | UTF-8（无 BOM） | 7.5 KB | 500.4 KB | 否 | ElementTree + Faker 假数据序列化 | XML 解析、命名空间处理、编码声明验证 |
+| ini  | UTF-8（无 BOM） | 4.4 KB | 276.5 KB | 否 | configparser + Faker 假数据 | 配置文件解析、节段读取、键值对提取 |
+| cfg  | UTF-8（无 BOM） | 4.4 KB | 276.5 KB | 否 | 同 ini（仅扩展名不同，内容字节级一致） | 配置文件解析、扩展名兼容性测试 |
+| wav  | — | 47.0 KB | 861.4 KB | 否 | ffmpeg sine 滤镜合成正弦波（A4 440Hz / A3 220Hz） | 音频解析、PCM 解码、采样率测试 |
+| mp3  | — | 25.4 KB | 235.8 KB | 否 | ffmpeg libmp3lame 编码正弦波（同 wav 内容） | MP3 解码、ID3 标签、比特率测试 |
+| mp4  | — | 61.8 KB | 2551.3 KB | 是（drawtext 加载子集字体） | ffmpeg testsrc2 测试图 + drawtext 中文叠加 + 可选 sine 音轨 | 视频解析、H.264 解码、字幕渲染、音视频同步 |
 
 ### 字体说明
 
@@ -40,16 +43,19 @@
   - PDF：reportlab `TTFont` 显式注册
   - docx/pptx/xlsx：通过库 API 指定字体名 `Source Han Sans CN`（不嵌字体文件）
   - png/jpg：Pillow `ImageFont.truetype` 加载子集字体
+  - mp4：ffmpeg `drawtext` 滤镜 `fontfile` 参数加载子集字体
 
 ### 大小档位说明
 
-- 小档位目标 < 100 KB：zip 因打包 11 个目录的"小文件"组合，体积为 241 KB，属结构性偏离
-- 中等档位目标 100 KB–1 MB：zip 因打包全部格式"中等文件"组合，体积为 1.5 MB，仍在 5 MB 上限内（视为可选大档位）
-- 其余 11 个格式均符合档位区间
+- 小档位目标 < 100 KB：12 个格式符合；zip 因打包 14 个目录的"小文件"组合，体积 311 KB，属结构性偏离；mp4 受视频流最小体积限制，需 320×180/15fps/crf=30 才能压到 62 KB
+- 中等档位目标 100 KB–1 MB：12 个格式符合；zip 因打包全部格式"中等文件"组合，体积 4.4 MB，仍在 5 MB 上限内；mp4 因视频流本质特性，15 秒 960×540 即 2.5 MB，超 1 MB 但在 5 MB 上限内
+- 其余格式均符合档位区间
 
-## P1b（待实现）
+### ffmpeg 依赖说明
 
-wav、mp3、mp4（需 ffmpeg 系统预装）
+- wav/mp3/mp4 需要 ffmpeg 系统预装并加入 PATH（按 AGENTS.md 不进 pyproject）
+- 验证版本：ffmpeg 7.1-full_build（gyan.dev）启用 libmp3lame、libx264、libfreetype、libharfbuzz
+- 所有音频/视频内容均为 ffmpeg lavfi 滤镜合成（sine 正弦波 / testsrc2 测试图 + drawtext 中文叠加），无版权风险
 
 ## P2（待评估）
 

@@ -1,4 +1,4 @@
-"""P0 + P1a 总入口：依次运行所有格式生成脚本（zip 必须最后运行）。
+"""P0 + P1a + P1b 总入口：依次运行所有格式生成脚本（zip 必须最后运行）。
 
 用法：
     uv run python scripts/generate.py
@@ -16,7 +16,7 @@ SCRIPTS_DIR = Path(__file__).resolve().parent
 
 # 模块顺序：zip 依赖其他格式已生成，放在最后
 # jpg 复用 generate_png 的工具函数，需在 png 之后
-# ini/cfg 在 zip 之前
+# wav/mp3/mp4 独立合成，放在 zip 之前
 MODULES = [
     "generate_txt",
     "generate_csv",
@@ -28,6 +28,9 @@ MODULES = [
     "generate_jpg",
     "generate_xml",
     "generate_ini",
+    "generate_wav",
+    "generate_mp3",
+    "generate_mp4",
     "generate_zip",
 ]
 
