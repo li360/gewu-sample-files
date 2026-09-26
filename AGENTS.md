@@ -14,7 +14,7 @@
 - 代码、脚本、配置：MIT
 - `AGENTS.md`、`README.md`、`docs/` 等项目级文档：MIT
 - `samples/` 下由本项目生成的样本文件：CC0-1.0
-- `assets/fonts/` 下的字体按其原始许可证（如思源系列为 OFL-1.1），在目录内单独 `LICENSE` 文件标注；OFL 不可与 MIT 合并为单一许可证
+- `assets/fonts/` 下的字体（思源黑体 CN 子集 `SourceHanSansSC-Regular-subset.ttf` + `LICENSE-OFL.txt`）按 OFL-1.1 许可，单独标注；OFL 不可与 MIT 合并为单一许可证
 - 第三方来源文件必须单独标注来源和许可证，且只能使用 CC0、MIT、公共领域等宽松许可
 
 ## 版权红线
@@ -43,10 +43,17 @@
 
 中文样本在跨平台渲染时差异巨大（Windows 雅黑/宋体、Linux Noto、macOS PingFang），必须统一字体来源，避免在 CI 或 Linux 服务器上出现方块字。
 
-- 项目自带字体放入 `assets/fonts/`，使用 OFL-1.1 许可字体（如思源黑体 / 思源宋体）
-- 生成 PDF 时通过 reportlab 显式注册字体，禁止依赖系统字体
-- 生成 docx/pptx 时通过库 API 指定字体名，文档内嵌字体策略后续讨论
+- 项目自带字体放入 `assets/fonts/`，使用 OFL-1.1 许可字体（思源黑体 CN）
+- **子集格式必须是 TTF（glyf outlines），不能是 OTF（CFF outlines）**：reportlab 的 TTFont 只支持 TrueType outlines，CFF OTF 会报 "postscript outlines are not supported"
+- 子集化输出 `SourceHanSansSC-Regular-subset.ttf`（约 1.93 MB，< 5 MB 可直接入 git）
+- 字符集：GB 2312 一级常用字 3755 + ASCII + 常用中文标点（共 3882 字）
+- 源字体（17 MB 的 Variable TTF）不入 git，放入 `assets/fonts/_source/`（已 .gitignore）
+- OFL 许可证单独保存为 `assets/fonts/LICENSE-OFL.txt`，OFL 不可与 MIT 合并为单一许可证
+- 生成 PDF 时通过 reportlab `TTFont` 显式注册子集字体，禁止依赖系统字体
+- 生成 docx/pptx 时通过库 API 指定字体名 `Source Han Sans CN`，文档内嵌字体策略后续讨论
+- 生成 PNG 时通过 Pillow `ImageFont.truetype` 加载同一子集字体
 - 字体文件不放入 `samples/`，避免污染样本许可
+- 子集化脚本：`scripts/prepare_fonts.py`，可重复运行（已存在子集则跳过）
 
 ## 目录结构
 
