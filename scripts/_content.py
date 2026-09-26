@@ -81,22 +81,41 @@ def classics_text(min_chars: int = 500) -> str:
     return "\n".join(out)
 
 
+# 常见中文姓氏池（用于构造"姓氏+X"占位姓名，避免撞真实人名）
+_SURNAMES = [
+    "李", "王", "张", "刘", "陈", "杨", "赵", "黄", "周", "吴",
+    "徐", "孙", "胡", "朱", "高", "林", "何", "郭", "马", "罗",
+    "梁", "宋", "郑", "谢", "韩", "唐", "冯", "于", "董", "萧",
+]
+
+
 def faker_person_rows(n: int = 10) -> list[dict[str, str]]:
-    """生成 n 行虚构人物数据。返回 dict 列表，键与 CSV 表头一致。
+    """生成 n 行示例化人物数据。返回 dict 列表，键与 CSV 表头一致。
+
+    为避免撞上真实信息（姓名/城市/邮箱/电话/公司），所有可能撞真实的字段
+    均改为"一看就是示例"的占位格式：
+    - 姓名：姓氏 + 1~2 个 X（如"李X"、"王XX"）
+    - 城市：示例市001、示例市002 ...
+    - 邮箱：user001@example.com（example.com 为 RFC 2606 保留域名）
+    - 电话：0000-00000000（明显非真实号码格式）
+    - 公司：示例公司001、示例公司002 ...
+    性别、年龄、职位保留 Faker 生成（无撞真实风险）。
 
     字段：姓名、性别、年龄、城市、邮箱、电话、职位、公司
     """
     rows: list[dict[str, str]] = []
-    for _ in range(n):
+    for i in range(n):
+        surname = random.choice(_SURNAMES)
+        given_x = "X" * random.choice([1, 2])  # 1~2 个 X 占位
         rows.append({
-            "姓名": faker.name(),
+            "姓名": f"{surname}{given_x}",
             "性别": random.choice(["男", "女"]),
             "年龄": str(random.randint(18, 65)),
-            "城市": faker.city(),
-            "邮箱": faker.email(),
-            "电话": faker.phone_number(),
+            "城市": f"示例市{i + 1:03d}",
+            "邮箱": f"user{i + 1:03d}@example.com",
+            "电话": "0000-00000000",
             "职位": faker.job(),
-            "公司": faker.company(),
+            "公司": f"示例公司{i + 1:03d}",
         })
     return rows
 

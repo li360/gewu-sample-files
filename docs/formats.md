@@ -17,17 +17,17 @@
 | 格式 | 编码 | 小文件 | 中等文件 | 字体 | 内容来源 | 测试场景 |
 |------|------|--------|----------|------|----------|----------|
 | txt  | UTF-8（无 BOM） | 2.6 KB | 193.3 KB | 否 | 自编段落 + 古籍原文 | 编码检测、文本预览、行尾处理 |
-| csv  | UTF-8 with BOM | 3.1 KB | 200.4 KB | 否 | Faker zh_CN 虚构人物 | Excel 中文导入、CSV 解析、表头识别 |
+| csv  | UTF-8 with BOM | 2.8 KB | 185.6 KB | 否 | 示例化占位数据（姓氏+X、示例市、example.com、示例公司） | Excel 中文导入、CSV 解析、表头识别 |
 | docx | — | 37.2 KB | 141.5 KB | 是（指定字体名） | Faker 段落 + 古籍原文 | Office 在线预览、文档解析、中文字体替换 |
 | pdf  | — | 70.7 KB | 149.3 KB | 是（reportlab 注册） | 自编段落 + 古籍原文 | PDF 阅读器渲染、文本抽取、字体嵌入验证 |
 | png  | — | 56.9 KB | 338.6 KB | 是（Pillow truetype） | Pillow 自绘中文段落 | 图片预览、缩略图生成、中文字体渲染 |
-| zip  | — | 310.7 KB | 4381.0 KB | — | 打包上述样本（按子目录组织） | 压缩包解压、目录结构还原、跨格式批量测试 |
-| xlsx | — | 7.7 KB | 150.7 KB | 是（openpyxl Font 指定字体名） | Faker zh_CN 虚构人物表格 | Excel 解析、单元格样式、中文字体替换 |
+| zip  | — | 307.5 KB | 4245.3 KB | — | 打包上述样本（按子目录组织） | 压缩包解压、目录结构还原、跨格式批量测试 |
+| xlsx | — | 7.0 KB | 115.2 KB | 是（openpyxl Font 指定字体名） | 示例化占位表格（姓氏+X、示例市、example.com、示例公司） | Excel 解析、单元格样式、中文字体替换 |
 | pptx | — | 31.7 KB | 163.9 KB | 是（python-pptx 指定字体名） | Faker 段落 + 自编段落 | 幻灯片解析、版式渲染、中文字体替换 |
 | jpg  | — | 45.0 KB | 277.2 KB | 是（Pillow truetype） | Pillow 自绘中文段落（JPEG 压缩） | 图片预览、缩略图生成、有损压缩测试 |
-| xml  | UTF-8（无 BOM） | 7.5 KB | 500.4 KB | 否 | ElementTree + Faker 假数据序列化 | XML 解析、命名空间处理、编码声明验证 |
-| ini  | UTF-8（无 BOM） | 4.4 KB | 276.5 KB | 否 | configparser + Faker 假数据 | 配置文件解析、节段读取、键值对提取 |
-| cfg  | UTF-8（无 BOM） | 4.4 KB | 276.5 KB | 否 | 同 ini（仅扩展名不同，内容字节级一致） | 配置文件解析、扩展名兼容性测试 |
+| xml  | UTF-8（无 BOM） | 7.3 KB | 486.0 KB | 否 | ElementTree + 示例化占位数据序列化 | XML 解析、命名空间处理、编码声明验证 |
+| ini  | UTF-8（无 BOM） | 4.1 KB | 258.0 KB | 否 | configparser + 示例化占位数据 | 配置文件解析、节段读取、键值对提取 |
+| cfg  | UTF-8（无 BOM） | 4.1 KB | 258.0 KB | 否 | 同 ini（仅扩展名不同，内容字节级一致） | 配置文件解析、扩展名兼容性测试 |
 | wav  | — | 47.0 KB | 861.4 KB | 否 | ffmpeg sine 滤镜合成正弦波（A4 440Hz / A3 220Hz） | 音频解析、PCM 解码、采样率测试 |
 | mp3  | — | 25.4 KB | 235.8 KB | 否 | ffmpeg libmp3lame 编码正弦波（同 wav 内容） | MP3 解码、ID3 标签、比特率测试 |
 | mp4  | — | 61.8 KB | 2551.3 KB | 是（drawtext 加载子集字体） | ffmpeg testsrc2 测试图 + drawtext 中文叠加 + 可选 sine 音轨 | 视频解析、H.264 解码、字幕渲染、音视频同步 |
@@ -56,6 +56,23 @@
 - wav/mp3/mp4 需要 ffmpeg 系统预装并加入 PATH（按 AGENTS.md 不进 pyproject）
 - 验证版本：ffmpeg 7.1-full_build（gyan.dev）启用 libmp3lame、libx264、libfreetype、libharfbuzz
 - 所有音频/视频内容均为 ffmpeg lavfi 滤镜合成（sine 正弦波 / testsrc2 测试图 + drawtext 中文叠加），无版权风险
+
+### 示例化数据策略
+
+csv / xlsx / xml / ini / cfg 中的人物数据采用"一看就是示例"的占位格式，避免撞上真实信息：
+
+| 字段 | 格式 | 示例 |
+|------|------|------|
+| 姓名 | 常见姓氏 + 1~2 个 X | `李X`、`王XX`、`张X` |
+| 城市 | `示例市` + 3 位序号 | `示例市001`、`示例市002` |
+| 邮箱 | `user` + 3 位序号 + `@example.com` | `user001@example.com`（RFC 2606 保留域名） |
+| 电话 | 固定假号码 | `0000-00000000`（非真实号码格式） |
+| 公司 | `示例公司` + 3 位序号 | `示例公司001`、`示例公司002` |
+| 性别 | 随机 `男`/`女` | — |
+| 年龄 | 随机 18~65 | — |
+| 职位 | Faker 生成通用职业名 | `软件工程师`（无撞真实风险） |
+
+实现位于 `scripts/_content.py` 的 `faker_person_rows()` 函数。
 
 ## P2（待评估）
 

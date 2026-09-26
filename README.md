@@ -43,17 +43,17 @@ zh-sample-files/
 | 格式 | 编码 | 小文件 | 中等文件 | 内容来源 |
 |------|------|--------|----------|----------|
 | txt  | UTF-8（无 BOM） | 2.6 KB | 193.3 KB | 自编段落 + 古籍原文 |
-| csv  | UTF-8 with BOM | 3.1 KB | 200.4 KB | Faker zh_CN 虚构人物 |
+| csv  | UTF-8 with BOM | 2.8 KB | 185.6 KB | 示例化占位数据（姓氏+X、示例市、example.com、示例公司） |
 | docx | — | 37.2 KB | 141.5 KB | Faker 段落 + 古籍原文 |
 | pdf  | — | 70.7 KB | 149.3 KB | 自编段落 + 古籍原文 |
 | png  | — | 56.9 KB | 338.6 KB | Pillow + 思源字体 |
-| zip  | — | 310.7 KB | 4381.0 KB | 打包上述样本 |
-| xlsx | — | 7.7 KB | 150.7 KB | openpyxl + Faker 表格 + 思源字体 |
+| zip  | — | 307.5 KB | 4245.3 KB | 打包上述样本 |
+| xlsx | — | 7.0 KB | 115.2 KB | openpyxl + 示例化占位表格 + 思源字体 |
 | pptx | — | 31.7 KB | 163.9 KB | python-pptx + Faker 段落 |
 | jpg  | — | 45.0 KB | 277.2 KB | Pillow + 思源字体（JPEG 压缩） |
-| xml  | UTF-8（无 BOM） | 7.5 KB | 500.4 KB | ElementTree + Faker 假数据 |
-| ini  | UTF-8（无 BOM） | 4.4 KB | 276.5 KB | configparser + Faker 假数据 |
-| cfg  | UTF-8（无 BOM） | 4.4 KB | 276.5 KB | 同 ini（仅扩展名不同） |
+| xml  | UTF-8（无 BOM） | 7.3 KB | 486.0 KB | ElementTree + 示例化占位数据 |
+| ini  | UTF-8（无 BOM） | 4.1 KB | 258.0 KB | configparser + 示例化占位数据 |
+| cfg  | UTF-8（无 BOM） | 4.1 KB | 258.0 KB | 同 ini（仅扩展名不同） |
 | wav  | — | 47.0 KB | 861.4 KB | ffmpeg sine 滤镜合成正弦波 |
 | mp3  | — | 25.4 KB | 235.8 KB | ffmpeg libmp3lame 编码正弦波 |
 | mp4  | — | 61.8 KB | 2551.3 KB | ffmpeg testsrc2 + drawtext 思源字体 + 可选 sine 音轨 |
