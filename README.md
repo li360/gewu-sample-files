@@ -18,7 +18,7 @@
 # 2. 同步依赖（uv 会自动安装所需 Python 版本与依赖）
 uv sync
 
-# 3. 生成全部 P0 样本（txt/csv/docx/pdf/png/zip）
+# 3. 生成全部样本（P0 + P1a：txt/csv/docx/pdf/png/zip/xlsx/pptx/jpg/xml/ini/cfg）
 uv run python scripts/generate.py
 ```
 
@@ -37,16 +37,22 @@ zh-sample-files/
 └── docs/formats.md    # 各格式样本的元数据
 ```
 
-## 已支持的格式（P0）
+## 已支持的格式（P0 + P1a）
 
 | 格式 | 编码 | 小文件 | 中等文件 | 内容来源 |
 |------|------|--------|----------|----------|
 | txt  | UTF-8（无 BOM） | 2.6 KB | 193.3 KB | 自编段落 + 古籍原文 |
 | csv  | UTF-8 with BOM | 3.1 KB | 200.4 KB | Faker zh_CN 虚构人物 |
-| docx | — | 37.2 KB | 140.9 KB | Faker 段落 + 古籍原文 |
+| docx | — | 37.2 KB | 141.5 KB | Faker 段落 + 古籍原文 |
 | pdf  | — | 70.7 KB | 149.3 KB | 自编段落 + 古籍原文 |
 | png  | — | 56.9 KB | 338.6 KB | Pillow + 思源字体 |
-| zip  | — | 159.8 KB | 800.2 KB | 打包上述样本 |
+| zip  | — | 241.3 KB | 1533.3 KB | 打包上述样本 |
+| xlsx | — | 7.7 KB | 150.8 KB | openpyxl + Faker 表格 + 思源字体 |
+| pptx | — | 31.7 KB | 163.5 KB | python-pptx + Faker 段落 |
+| jpg  | — | 45.0 KB | 277.2 KB | Pillow + 思源字体（JPEG 压缩） |
+| xml  | UTF-8（无 BOM） | 7.5 KB | 500.5 KB | ElementTree + Faker 假数据 |
+| ini  | UTF-8（无 BOM） | 4.4 KB | 276.1 KB | configparser + Faker 假数据 |
+| cfg  | UTF-8（无 BOM） | 4.4 KB | 276.1 KB | 同 ini（仅扩展名不同） |
 
 完整元数据（字体、测试场景）见 [docs/formats.md](docs/formats.md)。
 

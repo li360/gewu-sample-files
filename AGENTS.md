@@ -69,7 +69,7 @@ zh-sample-files/
 ├── .editorconfig       # 中文项目编码与缩进规范
 ├── assets/
 │   └── fonts/
-│       └── LICENSE     # OFL 字体许可证
+│       └── LICENSE-OFL.txt  # OFL 字体许可证
 ├── scripts/
 │   ├── generate.py
 │   ├── generate_docx.py
